@@ -1,0 +1,12 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+  <div class="quote-card">
+    <div class="quote-icon">❝</div>
+    <div class="quote-text" id="quote">
+      {{ quote}}
+    </div>
+    <button class="refresh-btn" onclick="location.reload()">New Quote</button>
+
+  </div>
+{% endblock %}

@@ -1,0 +1,56 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #74ABE2, #5563DE);
+}
+
+.quote-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.quote-card:hover {
+    transform: translateY(-5px);
+}
+
+.quote-icon {
+    font-size: 40px;
+    color: #5563DE;
+}
+
+.quote-text {
+    font-size: 18px;
+    color: #333;
+    margin: 20px 0;
+    line-height: 1.5;
+}
+
+.quote-author {
+    font-size: 16px;
+    color: #666;
+    font-weight: 500;
+}
+
+.refresh-btn {
+    background: #5563DE;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+.refresh-btn:hover {
+    background: #3846a3;
+}
