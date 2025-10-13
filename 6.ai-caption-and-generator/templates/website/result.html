@@ -1,0 +1,37 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<div class="card shadow-lg border-0 rounded-3 p-3 text-center">
+  <img
+    src="/{{ image_path }}"
+    alt="Uploaded Image"
+    width="300"
+    height="300"
+    class="img-fluid rounded m-auto"
+  />
+
+  <h5 class="text-success fw-bold mt-3">Caption:</h5>
+  <p id="caption-text" class="text-dark border rounded py-2 px-3 bg-light">
+    {{ caption }}
+  </p>
+
+  <div class="d-flex justify-content-center gap-2 mt-3">
+    <button class="btn btn-outline-success" onclick="copyCaption()">
+      <i class="bi bi-clipboard"></i> Copy Caption
+    </button>
+    <a href="/" class="btn btn-outline-secondary">
+      <i class="bi bi-arrow-repeat"></i> Try Another
+    </a>
+  </div>
+</div>
+
+<script>
+  function copyCaption() {
+    var captionText = document.getElementById("caption-text").textContent;
+    navigator.clipboard.writeText(captionText).then(function () {
+      alert("Caption copied to clipboard!");
+    });
+  }
+</script>
+{% endblock %}
+

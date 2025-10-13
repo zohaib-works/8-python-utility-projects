@@ -1,0 +1,39 @@
+{% extends 'layouts/base.html' %} {% block content %}
+<div class="row">
+  <div class="col-md-12">
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %} 
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ messages[0] }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+    {% endwith %}
+
+
+    <div class="card mt-5">
+      <div class="card-header">
+        <h3 class="card-title">AI Caption and Generator</h3>
+        <p class="card-subtitle mb-2 text-muted">
+          A simple AI caption and generator website.
+        </p>
+      </div>
+      <div class="card-body">
+        <form action="/" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="image">Upload Image</label>
+            <input type="file" class="form-control-file" id="image" name="image" required>
+            <button type="submit" class="btn btn-primary mt-3">Generate</button>
+          </div>
+        </form>
+
+        {% if error %}
+          <p class="mt-3 text-danger">{{ error }}</p>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
