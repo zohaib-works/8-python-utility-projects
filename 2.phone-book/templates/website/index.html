@@ -1,0 +1,70 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+    <h1>Phone Book</h1>
+
+    <!-- search form phone book -->
+     
+    <form action="" method="GET">
+        <div class="d-flex">
+            <input 
+            type="text" 
+            name="search" 
+            placeholder="Search..."
+            class="form-control"
+            value="{{ search | default('') }}">
+
+            <div class="d-flex">
+                <button class="btn btn-primary ms-md-2" type="submit">Search</button>
+                <a href="{{ url_for('create') }}" class="btn btn-success ms-md-2" style="width: 150px;">Add Contact</a>
+            </div>
+        </div>
+    </form>
+
+    <!-- SHOW FLASH MESSAGE for index -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} mt-3" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- table phone book -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Created At</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contact in contacts %}
+                <tr>
+                    <td>{{ contact.name }}</td>
+                    <td>{{ contact.phone }}</td>
+                    <td>{{ contact.email }}</td>
+                    <td>{{ contact.address }}</td>
+                    <td>{{ contact.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>
+                        <a href="{{ url_for('edit', id=contact.id) }}" class="btn btn-primary">Edit</a>
+                        <form action="{{ url_for('delete', id=contact.id) }}" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6" class="text-center">No contacts found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+<h1>Edit Contact</h1>
+
+<form action="{{ url_for('edit', id=contact.id) }}" method="POST">
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" value="{{ contact.name }}" id="name" placeholder="Type name here..."
+            name="name">
+    </div>
+    <div class="mb-3">
+        <label for="phone" class="form-label">Phone</label>
+        <input type="text" class="form-control" value="{{ contact.phone }}" id="phone"
+            placeholder="Type phone number here..." name="phone">
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" value="{{ contact.email }}" id="email" placeholder="Type email here..."
+            name="email">
+    </div>
+    <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <textarea class="form-control" id="address" name="address" placeholder="Type address here..."
+            rows="3">{{ contact.address }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary"> Update </button>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
