@@ -1,0 +1,64 @@
+{% extends 'layouts/base.html' %} 
+
+{% block content %}
+  <div class="row mb-5">
+    <div class="col-md-12">
+      <h1 class="text-center">Realtime Weather App</h1>
+      <p class="lead text-muted" id="status">
+        Detecting your location...
+      </p>
+
+      <div id="weather" class="card mx-auto p-4 shadow" style="display: none;max-width: 400px;">
+        <div class="card-header">
+          <h3 class="card-title" id="location"></h3>
+          <img id="icon" class="my-3" src="" alt="Weather Icon" />
+          <p id="temp" class="h4"></p>
+          <p id="desc" class="text-capitalize"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!navigator.geolocation) {
+            document.getElementById('status').textContent = 'Geolocation is not supported by your browser.';
+        }else{
+            document.getElementById('status').textContent = 'Locating...';
+            document.getElementById('status').style.fontWeight = 'bold';
+            document.getElementById('status').style.fontSize = '1.5rem';
+            navigator.geolocation.getCurrentPosition((position) => {
+                fetchWeather(position.coords.latitude, position.coords.longitude);
+            }, (error) => {
+                document.getElementById('status').textContent = 'Unable to retrieve your location. Please reload the page.';
+            });
+        }
+        async function fetchWeather(lat, lon) {
+            const response = await fetch(`/get-weather`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    lat: lat,
+                    lon: lon
+                })
+            });
+            const data = await response.json();
+            if (data.error) {
+                document.getElementById('status').textContent = data.error;
+            } else {
+                document.getElementById('status').style.display = 'none';
+                document.getElementById('weather').style.display = 'block';
+                document.getElementById('location').textContent = data.location;
+                document.getElementById('temp').textContent = `${data.temperature}C`;
+                document.getElementById('desc').textContent = data.description;
+                document.getElementById('icon').src = data.icon;
+            }
+        }
+    });
+
+
+  </script>
+{% endblock %}
